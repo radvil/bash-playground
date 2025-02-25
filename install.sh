@@ -110,8 +110,6 @@ if [[ "$UNINSTALL" == true ]]; then
   exit 0
 fi
 
-log "Installing KDE Configs..."
-
 source_script() {
   local script_url="$1"
   log "Downloading and executing » $script_url"
@@ -134,7 +132,7 @@ source_script() {
 export source_script
 
 PLASMA_CONFIG_INIT_URL="${SCRIPTS_BASE_URL}/install-plasma-config.sh"
-sudo sh -c "$(curl -fsSL $PLASMA_CONFIG_INIT_URL/install-plasma-config.sh)" --verbose=true
+sudo sh -c "$(curl -fsSL $PLASMA_CONFIG_INIT_URL)" --verbose=true
 
 VARIANT_SCRIPT_URL="${SCRIPTS_BASE_URL}/variants/${VARIANT}.sh"
 source_script "$VARIANT_SCRIPT_URL"
