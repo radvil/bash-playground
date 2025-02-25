@@ -23,10 +23,10 @@ INSTALL_DIR="$HOME/.playground"
 
 export DOTFILES="$INSTALL_DIR"
 
-SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos")
+SUPPORTED_VARIANTS=("fedora" "bazzite" "nobara" "arch" "cachyos")
 
 usage() {
-    echo "Usage: $0 [--variant fedora|bazzite|arch|cachyos]"
+    echo "Usage: $0 [--variant fedora|bazzite|nobara|arch|cachyos]"
     exit 1
 }
 
@@ -57,7 +57,7 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --variant)
             if [[ -z "$2" || ! " ${SUPPORTED_VARIANTS[@]} " =~ " $2 " ]]; then
-                error "Invalid value for --variant. Supported values: fedora, bazzite, arch, cachyos"
+                error "Invalid value for --variant. Supported values: fedora, bazzite, nobara, arch, cachyos"
             fi
             VARIANT="$2"
             shift 2
