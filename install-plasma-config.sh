@@ -10,6 +10,7 @@ DRY_RUN=false
 
 if [ -z "$DOTFILES_USER" ]; then
   GLOBAL_XDG="/home/$DOTFILES_USER/.config"
+  echo "$GLOBAL_XDG"
 fi
 
 if [ ! -d "$GLOBAL_XDG.bak" ]; then
