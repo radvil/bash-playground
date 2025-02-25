@@ -76,12 +76,18 @@ printf "\n%-15s | %-10s\n" "Argument" "Value"
 echo "------------------------------"
 printf "%-15s | %-10s\n" "Variant" "$VARIANT"
 
-# Execute the corresponding variant script if it exists
-VARIANT_SCRIPT="$DOTFILES/variants/${VARIANT}.sh"
-if [[ -f "$VARIANT_SCRIPT" ]]; then
-    log "Executing variant script: $VARIANT_SCRIPT"
-    chmod +x ${VARIANT_SCRIPT}.sh && bash "$VARIANT_SCRIPT"
+# Execute the corresponding variant script using curl
+VARIANT_SCRIPT_URL="https://raw.githubusercontent.com/radvil/bash-playground/main/variants/${VARIANT}.sh"
+
+log "Downloading and executing variant script: $VARIANT_SCRIPT_URL"
+
+if command -v bash &> /dev/null; then
+    bash -c "$(curl -s $VARIANT_SCRIPT_URL)"
+elif command -v fish &> /dev/null; then
+    fish -c "curl -s $VARIANT_SCRIPT_URL | source"
+elif command -v zsh &> /dev/null; then
+    zsh -c "$(curl -s $VARIANT_SCRIPT_URL)"
 else
-    error "Variant script not found: $VARIANT_SCRIPT"
+    error "No supported shell found (bash, fish, or zsh). Please install bash to proceed."
 fi
 
