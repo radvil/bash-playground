@@ -53,7 +53,14 @@ download_and_link_config() {
   # Symlink from /usr/share/dotfiles to /etc/xdg/
   log "🔗 Linking $dotfile → $dest"
   verbose_log "Running: ln -sf $dotfile $dest"
-  if [ "$DRY_RUN" = false ]; then ln -sf "$dotfile" "$dest"; fi
+  if [ "$DRY_RUN" = false ]; then
+    if [ -f "$dest" ]; then
+      verbose_log "Backing up $dest → $backup before doing the symlink"
+      mv "$dest" "$backup"
+      old_config="$backup"
+    fi
+    ln -sf "$dotfile" "$dest"
+  fi
 
   SUMMARY_TABLE="$SUMMARY_TABLE\n| $file | $old_config | $dest |"
 }
