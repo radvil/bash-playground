@@ -20,7 +20,7 @@ Before running the script, ensure that:
 To install and configure dotfiles, run the following command:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/radvil/bash-playground/install.sh) --variant <distro>
+bash <(curl -s https://raw.githubusercontent.com/radvil/bash-playground/refs/heads/main/install.sh) --variant <distro>
 ```
 
 Replace `<distro>` with one of the supported distributions (e.g., `fedora`, `bazzite`, `arch`, `cachyos`).

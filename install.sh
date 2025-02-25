@@ -39,12 +39,12 @@ error() {
     exit 1
 }
 
-# Ensure the script is run by a non-root user in the sudoers group
+# Ensure the script is run by a non-root user in the wheel group
 if [[ "$EUID" -eq 0 ]]; then
     error "This script must not be run as root. Please run it as a normal user with sudo privileges."
 fi
-if ! groups | grep -q '\bsudo\b'; then
-    error "User must be in the sudoers group."
+if ! groups | grep -q '\bwheel\b'; then
+    error "User must be in the wheel group."
 fi
 
 # Display usage if no arguments are passed
