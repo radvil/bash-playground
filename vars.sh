@@ -2,12 +2,12 @@
 
 VARIANT=""
 USER_SHELL="$SHELL"
-INSTALL_DIR="$HOME/.dotfiles"
+DOTFILES_DIR="/usr/share/dotfiles"
 GLOBAL_XDG="/etc/xdg"
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
-PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/kde-configs"
+PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/plasma-configs"
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
-PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc kstyle.theme"
+PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc"
 UNINSTALL=false
 
 log() {
@@ -56,4 +56,4 @@ export PLASMA_CONFIGS
 export SCRIPTS_BASE_URL
 export SUPPORTED_VARIANTS
 export PLASMA_CONFIGS_BASE_URL
-export DOTFILES="$INSTALL_DIR"
+export DOTFILES_DIR

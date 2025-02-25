@@ -5,14 +5,8 @@ set -e
 # load shared functions and variables
 eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main/vars.sh)"
 
-VERBOSE=true # Verbose mode ON by default
-DRY_RUN=true # Dry-run mode ON by default
-
-verbose_log() {
-  if [ "$VERBOSE" = true ]; then
-    echo "[DEBUG] $1"
-  fi
-}
+VERBOSE=true
+DRY_RUN=true
 
 # Store summary info
 SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"
@@ -21,66 +15,48 @@ download_config() {
   file="$1"
   src="$PLASMA_CONFIGS_BASE_URL/$file"
   dest="$GLOBAL_XDG/$file"
+  dotfile="$DOTFILES_DIR/$file"
   backup="${dest}.dotfile.bak"
   old_config="None"
 
-  # Restore backup if exists (before downloading new config)
+  # Ensure dotfiles directory exists
+  if [ "$DRY_RUN" = false ]; then mkdir -p "$DOTFILES_DIR"; fi
+
+  # Restore backup if exists
   if [ -f "$backup" ]; then
     log "♻️  Restoring backup for $file..."
     verbose_log "Moving $backup → $dest"
-
-    if [ "$DRY_RUN" = false ]; then
-      mv "$backup" "$dest"
-    fi
+    if [ "$DRY_RUN" = false ]; then mv "$backup" "$dest"; fi
     old_config="$backup"
   elif [ -f "$dest" ]; then
     log "🔄 Backing up existing $file to $backup"
     verbose_log "Moving $dest → $backup"
-
-    if [ "$DRY_RUN" = false ]; then
-      mv "$dest" "$backup"
-    fi
+    if [ "$DRY_RUN" = false ]; then mv "$dest" "$backup"; fi
     old_config="$backup"
   fi
 
-  # Download new config
+  # Download new config to /usr/share/dotfiles/
   log "🌍 Downloading $file from $src"
-  verbose_log "Running: curl -fvSL $src -o $dest"
-
+  verbose_log "Running: curl -fvSL $src -o $dotfile"
   if [ "$DRY_RUN" = false ]; then
     if [ "$VERBOSE" = true ]; then
-      curl -fvSL "$src" -o "$dest"
+      curl -fvSL "$src" -o "$dotfile"
     else
-      curl -fsSL "$src" -o "$dest"
+      curl -fsSL "$src" -o "$dotfile"
     fi
   fi
 
-  if [ "$DRY_RUN" = false ] && [ ! -f "$dest" ]; then
+  if [ "$DRY_RUN" = false ] && [ ! -f "$dotfile" ]; then
     error "❌ Failed to download $file"
   fi
 
-  # Append to summary (only once per file)
+  # Symlink from /usr/share/dotfiles to /etc/xdg/
+  log "🔗 Linking $dotfile → $dest"
+  verbose_log "Running: ln -sf $dotfile $dest"
+  if [ "$DRY_RUN" = false ]; then ln -sf "$dotfile" "$dest"; fi
+
   SUMMARY_TABLE="$SUMMARY_TABLE\n| $file | $old_config | $dest |"
 }
-
-# Parse command-line arguments
-for arg in "$@"; do
-  case "$arg" in
-  --verbose=false)
-    VERBOSE=false
-    ;;
-  --dry-run=false)
-    DRY_RUN=false
-    ;;
-  --help)
-    echo "Usage: $0 [--verbose=true|false] [--dry-run=true|false]"
-    exit 0
-    ;;
-  *)
-    error "❌ Unknown argument: $arg. Use --help for usage."
-    ;;
-  esac
-done
 
 # Ensure script runs as root
 if [ "$(id -u)" -ne 0 ]; then
@@ -89,7 +65,7 @@ fi
 
 log "🚀 Installing new KDE Plasma configurations..."
 for config in $PLASMA_CONFIGS; do
-  download_config "$config"
+  download_and_link_config "$config"
 done
 
 # Print summary table
@@ -97,18 +73,3 @@ echo -e "\n📌 **Summary of Changes:**"
 echo -e "$SUMMARY_TABLE" | column -t -s '|'
 
 log "✅ Installation complete!"
-
-# Detect the user's shell and configure accordingly
-USER_SHELL="$(basename "$SHELL")"
-
-case "$USER_SHELL" in
-bash | zsh)
-  log "✅ Restart your session or run: source ~/.bashrc / ~/.zshrc"
-  ;;
-fish)
-  log "🐟 Fish shell detected. Run: source ~/.config/fish/config.fish to apply changes."
-  ;;
-*)
-  log "⚠️ Unknown shell ($USER_SHELL). Restart your session to apply changes."
-  ;;
-esac
