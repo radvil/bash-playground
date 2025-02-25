@@ -4,7 +4,7 @@ VARIANT=""
 USER_SHELL="$SHELL"
 DOTFILES_DIR="/usr/share/dotfiles"
 # GLOBAL_XDG="/etc/xdg"
-GLOBAL_XDG="$USER/.config"
+GLOBAL_XDG="/home/$USER/.config"
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/plasma-configs"
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
@@ -12,7 +12,7 @@ PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc"
 UNINSTALL=false
 
 if [ -z "$DOTFILES_USER" ]; then
-  GLOBAL_XDG="$DOTFILES_USER/.config"
+  GLOBAL_XDG="/home/$DOTFILES_USER/.config"
 fi
 
 if [ ! -d "$GLOBAL_XDG.bak" ]; then
