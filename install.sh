@@ -91,7 +91,7 @@ fi
 
 PLASMA_CONFIG_INIT_URL="${SCRIPTS_BASE_URL}/install-plasma-config.sh"
 log "Plasma install script » ${PLASMA_CONFIG_INIT_URL}"
-sudo sh -c "$(curl -fsSL "${PLASMA_CONFIG_INIT_URL}")" --verbose=true
+sudo sh -c "$(curl -fsSL "${PLASMA_CONFIG_INIT_URL}?nocache=$(date +%s)")" --verbose=true
 
 VARIANT_SCRIPT_URL="${SCRIPTS_BASE_URL}/variants/${VARIANT}.sh"
 source_script "$VARIANT_SCRIPT_URL"
