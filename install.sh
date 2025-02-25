@@ -92,7 +92,7 @@ export DOTFILES="$INSTALL_DIR"
 
 # Display the parsed arguments as a table
 echo "--------------------------------------------------"
-printf "%-15s | %-20s\n" "Argument" "Value"
+printf "%-15s | %-20s\n" "Variables" "Value"
 echo "--------------------------------------------------"
 printf "%-15s | %-20s\n" "USER" "$USER"
 printf "%-15s | %-20s\n" "USER_SHELL" "$USER_SHELL"
