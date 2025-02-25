@@ -20,7 +20,7 @@ error() {
   exit 1
 }
 
-SCRIPTS_BASE_URL="https://raw.githubusercontent.com/bangpuki/bash-playground/main"
+SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/kde-configs"
 GLOBAL_XDG="/etc/xdg"
 PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc kstyle.theme"
