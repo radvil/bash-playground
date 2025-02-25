@@ -20,15 +20,19 @@ error() {
   exit 1
 }
 
-SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
+# SCRIPTS_BASE_URL="https://raw.githubusercontent.com/bangpuki/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/kde-configs"
 GLOBAL_XDG="/etc/xdg"
 PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc kstyle.theme"
+
+# Array to store summary info
+SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"
 
 backup_and_restore() {
   file="$1"
   dest="$GLOBAL_XDG/$file"
   backup="${dest}.dotfile.bak"
+  old_config="None"
 
   # Restore backup if exists
   if [ -f "$backup" ]; then
@@ -38,23 +42,29 @@ backup_and_restore() {
     if [ "$DRY_RUN" = false ]; then
       mv "$backup" "$dest"
     fi
+    old_config="$backup"
   fi
+
+  # Append to summary
+  SUMMARY_TABLE="$SUMMARY_TABLE\n| $file | $old_config | $dest |"
 }
 
 download_config() {
   file="$1"
   src="$PLASMA_CONFIGS_BASE_URL/$file"
   dest="$GLOBAL_XDG/$file"
+  backup="${dest}.dotfile.bak"
+  old_config="None"
 
   # Backup existing config
   if [ -f "$dest" ]; then
-    backup="${dest}.dotfile.bak"
     log "🔄 Backing up existing $file to $backup"
     verbose_log "Moving $dest → $backup"
 
     if [ "$DRY_RUN" = false ]; then
       mv "$dest" "$backup"
     fi
+    old_config="$backup"
   fi
 
   # Download new config
@@ -72,10 +82,10 @@ download_config() {
   if [ "$DRY_RUN" = false ] && [ ! -f "$dest" ]; then
     error "❌ Failed to download $file"
   fi
-}
 
-# init istall
-log "Installing KDE Configs..."
+  # Append to summary
+  SUMMARY_TABLE="$SUMMARY_TABLE\n| $file | $old_config | $dest |"
+}
 
 # Parse command-line arguments
 for arg in "$@"; do
@@ -110,6 +120,10 @@ log "🚀 Installing new KDE Plasma configurations..."
 for config in $PLASMA_CONFIGS; do
   download_config "$config"
 done
+
+# Print summary table
+echo -e "\n📌 **Summary of Changes:**"
+echo -e "$SUMMARY_TABLE" | column -t -s '|'
 
 log "✅ Installation complete!"
 

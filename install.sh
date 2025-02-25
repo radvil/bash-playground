@@ -89,6 +89,7 @@ done
 # export all variables for other scripts
 export VARIANT
 export USER_SHELL
+export SCRIPTS_BASE_URL
 export DOTFILES="$INSTALL_DIR"
 
 # Display the parsed arguments as a table
