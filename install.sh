@@ -86,31 +86,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-# export all variables for other scripts
-export VARIANT
-export USER_SHELL
-export SCRIPTS_BASE_URL
-export DOTFILES="$INSTALL_DIR"
-
-# Display the parsed arguments as a table
-echo "--------------------------------------------------"
-printf "%-15s | %-20s\n" "Variables" "Value"
-echo "--------------------------------------------------"
-printf "%-15s | %-20s\n" "USER" "$USER"
-printf "%-15s | %-20s\n" "USER_SHELL" "$USER_SHELL"
-printf "%-15s | %-20s\n" "VARIANT" "$VARIANT"
-printf "%-15s | %-20s\n" "DOTFILES" "$DOTFILES"
-echo "--------------------------------------------------"
-
-if [[ "$UNINSTALL" == true ]]; then
-  log "TODO: Uninstalling ${VARIANT} dotfiles, and try to restore the old config of $USER"
-  log "Unsetting exported variables..."
-  unset DOTFILES
-  unset USER_SHELL
-  unset VARIANT
-  exit 0
-fi
-
 source_script() {
   local script_url="$1"
   log "Downloading and executing » $script_url"
@@ -130,7 +105,34 @@ source_script() {
   esac
 }
 
+# export all variables for other scripts
+export VARIANT
+export USER_SHELL
+export SCRIPTS_BASE_URL
+export DOTFILES="$INSTALL_DIR"
+
+export log
+export error
 export source_script
+
+# Display the parsed arguments as a table
+echo "--------------------------------------------------"
+printf "%-15s | %-20s\n" "Variables" "Value"
+echo "--------------------------------------------------"
+printf "%-15s | %-20s\n" "USER" "$USER"
+printf "%-15s | %-20s\n" "USER_SHELL" "$USER_SHELL"
+printf "%-15s | %-20s\n" "VARIANT" "$VARIANT"
+printf "%-15s | %-20s\n" "DOTFILES" "$DOTFILES"
+echo "--------------------------------------------------"
+
+if [[ "$UNINSTALL" == true ]]; then
+  log "TODO: Uninstalling ${VARIANT} dotfiles, and try to restore the old config of $USER"
+  log "Unsetting exported variables..."
+  unset DOTFILES
+  unset USER_SHELL
+  unset VARIANT
+  exit 0
+fi
 
 PLASMA_CONFIG_INIT_URL="${SCRIPTS_BASE_URL}/install-plasma-config.sh"
 log "Plasma install script » ${PLASMA_CONFIG_INIT_URL}"

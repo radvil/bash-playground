@@ -5,19 +5,10 @@ set -e
 VERBOSE=true # Verbose mode ON by default
 DRY_RUN=true # Dry-run mode ON by default
 
-log() {
-  echo "[INFO] $1"
-}
-
 verbose_log() {
   if [ "$VERBOSE" = true ]; then
     echo "[DEBUG] $1"
   fi
-}
-
-error() {
-  echo "[ERROR] $1" >&2
-  exit 1
 }
 
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/bangpuki/bash-playground/main"
