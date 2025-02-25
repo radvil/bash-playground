@@ -8,10 +8,7 @@ eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main
 VERBOSE=false
 DRY_RUN=false
 
-if [ -z "$USER_HOME" ]; then
-  GLOBAL_XDG="$USER_HOME/.config"
-fi
-
+## TODO: remove later
 if [ ! -d "$GLOBAL_XDG.bak" ]; then
   cp -r "$GLOBAL_XDG" "$GLOBAL_XDG.bak"
 fi
