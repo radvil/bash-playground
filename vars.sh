@@ -34,7 +34,6 @@ error() {
   exit 1
 }
 
-
 source_script() {
   script_url="$1"
   log "Downloading and executing » $script_url"
