@@ -10,6 +10,10 @@ DRY_RUN=false
 
 if [ -z "$USER_HOME" ]; then
   GLOBAL_XDG="$HOME/.config"
+  if [ "$USER_HOME" == "/root/home" ]; then
+    echo "FUCK"
+    exit 1
+  fi
 fi
 
 if [ ! -d "$GLOBAL_XDG.bak" ]; then
