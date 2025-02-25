@@ -93,10 +93,10 @@ export DOTFILES="$INSTALL_DIR"
 # Display the parsed arguments as a table
 printf "\n%-15s | %-20s\n" "Argument" "Value"
 echo "--------------------------------------------------"
-printf "%-15s | %-20s\n" "$VARIANT" "$VARIANT"
-printf "%-15s | %-20s\n" "$DOTFILES" "$DOTFILES"
-printf "%-15s | %-20s\n" "$USER" "$USER"
-printf "%-15s | %-20s\n" "$USER_SHELL" "$USER_SHELL"
+printf "%-15s | %-20s\n" "USER" "$USER"
+printf "%-15s | %-20s\n" "USER_SHELL" "$USER_SHELL"
+printf "%-15s | %-20s\n" "VARIANT" "$VARIANT"
+printf "%-15s | %-20s\n" "DOTFILES" "$DOTFILES"
 
 if [[ "$UNINSTALL" == true ]]; then
 	log "TODO: Uninstalling ${VARIANT} dotfiles, and try to restore the old config of $USER"
