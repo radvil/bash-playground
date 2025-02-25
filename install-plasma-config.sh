@@ -8,6 +8,14 @@ eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main
 VERBOSE=false
 DRY_RUN=false
 
+if [ -z "$DOTFILES_USER" ]; then
+  GLOBAL_XDG="/home/$DOTFILES_USER/.config"
+fi
+
+if [ ! -d "$GLOBAL_XDG.bak" ]; then
+  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG.bak"
+fi
+
 # Store summary info
 SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"
 
