@@ -74,6 +74,9 @@ download_config() {
   fi
 }
 
+# init istall
+log "Installing KDE Configs..."
+
 # Parse command-line arguments
 for arg in "$@"; do
   case "$arg" in
