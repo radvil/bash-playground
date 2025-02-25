@@ -8,13 +8,12 @@ eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main
 VERBOSE=false
 DRY_RUN=false
 
-if [ -z "$DOTFILES_USER" ]; then
-  echo "${DOTFILES_USER}"
-  GLOBAL_XDG="/home/${DOTFILES_USER}/.config"
+if [ -z "$USER_HOME" ]; then
+  GLOBAL_XDG="$HOME/.config"
 fi
 
-if [ ! -d "${GLOBAL_XDG}.bak" ]; then
-  cp -r "$GLOBAL_XDG" "${GLOBAL_XDG}.bak"
+if [ ! -d "$GLOBAL_XDG.bak" ]; then
+  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG.bak"
 fi
 
 # Store summary info

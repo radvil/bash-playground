@@ -3,8 +3,7 @@
 VARIANT=""
 USER_SHELL="$SHELL"
 DOTFILES_DIR="/usr/share/dotfiles"
-# GLOBAL_XDG="/etc/xdg"
-GLOBAL_XDG="/home/$USER/.config"
+GLOBAL_XDG="$HOME/.config"
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/plasma-configs"
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
