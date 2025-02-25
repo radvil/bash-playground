@@ -3,18 +3,20 @@
 VARIANT=""
 USER_SHELL="$SHELL"
 INSTALL_DIR="$HOME/.dotfiles"
+GLOBAL_XDG="/etc/xdg"
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/kde-configs"
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
+PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc kstyle.theme"
 UNINSTALL=false
 
 log() {
-  printf "\e[32m[INFO]\e[0m %s" "$1"
+  printf "\e[32m[INFO]\e[0m %s\n" "$1"
 }
 
 verbose_log() {
   if [ "$VERBOSE" = true ]; then
-    printf "\033[36m[DEBUG]\033[0m %s" "$1"
+    printf "\033[36m[DEBUG]\033[0m %s\n" "$1"
   fi
 }
 
@@ -49,6 +51,8 @@ export -f log verbose_log error source_script
 export VARIANT
 export UNINSTALL
 export USER_SHELL
+export GLOBAL_XDG
+export PLASMA_CONFIGS_BASE_URL
 export SCRIPTS_BASE_URL
 export SUPPORTED_VARIANTS
 export PLASMA_CONFIGS_BASE_URL

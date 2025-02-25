@@ -2,6 +2,9 @@
 
 set -e
 
+# load shared functions and variables
+eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main/vars.sh)"
+
 VERBOSE=true # Verbose mode ON by default
 DRY_RUN=true # Dry-run mode ON by default
 
@@ -10,11 +13,6 @@ verbose_log() {
     echo "[DEBUG] $1"
   fi
 }
-
-SCRIPTS_BASE_URL="https://raw.githubusercontent.com/bangpuki/bash-playground/main"
-PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/kde-configs"
-GLOBAL_XDG="/etc/xdg"
-PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc kstyle.theme"
 
 # Store summary info
 SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"

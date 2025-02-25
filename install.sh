@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# init shared functions and variables
+# load shared functions and variables
 eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main/vars.sh)"
 
 usage() {
