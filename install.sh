@@ -18,8 +18,9 @@ echo -e "🚀 Installing dotfiles starting... Sit back, relax, and enjoy! 🎉\n
 
 # Default values
 VARIANT=""
-REPO_URL="https://github.com/your-repo/dotfiles.git"  # Change this later
-INSTALL_DIR="$HOME/.dotfiles"
+REPO_URL="https://github.com/radvil/bash-playground"  # Change this later
+INSTALL_DIR="$HOME/.playground"
+
 export DOTFILES="$INSTALL_DIR"
 
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos")
