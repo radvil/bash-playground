@@ -79,4 +79,7 @@ done
 echo -e "\n📌 **Summary of Changes:**"
 echo -e "$SUMMARY_TABLE" | column -t -s '|'
 
+log "🔥 Refreshing kwin_wayland"
+kwin_wayland --replace & disown
+
 log "✅ Installation complete!"
