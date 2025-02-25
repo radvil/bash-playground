@@ -1,0 +1,13 @@
+[Keyboard]
+RepeatDelay=250
+RepeatRate=54
+
+[Libinput][Defaults]
+PointerAccelerationProfile=1
+
+[Libinput][1267][12795][ASUE120D:00 04F3:31FB Touchpad]
+NaturalScroll=true
+
+[Mouse]
+cursorSize=32
+cursorTheme=volantes_cursors

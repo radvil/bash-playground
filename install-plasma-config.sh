@@ -5,8 +5,8 @@ set -e
 # load shared functions and variables
 eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main/vars.sh)"
 
-VERBOSE=true
-DRY_RUN=true
+VERBOSE=false
+DRY_RUN=false
 
 # Store summary info
 SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"
