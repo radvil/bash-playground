@@ -16,7 +16,7 @@ if [ -z "$DOTFILES_USER" ]; then
 fi
 
 if [ ! -d "$GLOBAL_XDG.bak" ]; then
-  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG/.bak"
+  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG.bak"
 fi
 
 log() {
