@@ -11,7 +11,7 @@ DRY_RUN=true
 # Store summary info
 SUMMARY_TABLE="| Filename | Old Config | New Config |\n|----------|------------|------------|"
 
-download_config() {
+download_and_link_config() {
   file="$1"
   src="$PLASMA_CONFIGS_BASE_URL/$file"
   dest="$GLOBAL_XDG/$file"
