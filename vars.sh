@@ -9,7 +9,7 @@ SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
 UNINSTALL=false
 
 log() {
-  echo "\033[32m[INFO]\033[0m $1"
+  echo -e "\e[32m[INFO]\e[0m $1"
 }
 
 verbose_log() {
@@ -19,7 +19,7 @@ verbose_log() {
 }
 
 error() {
-  echo "\033[31m[ERROR]\033[0m $1" >&2
+  echo -e "\e[31m[ERROR]\e[0m $1" >&2
   exit 1
 }
 
