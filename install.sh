@@ -77,13 +77,13 @@ echo "--------------------------------------------------"
 printf "%-15s | %-20s\n" "USER" "$USER"
 printf "%-15s | %-20s\n" "USER_SHELL" "$USER_SHELL"
 printf "%-15s | %-20s\n" "VARIANT" "$VARIANT"
-printf "%-15s | %-20s\n" "DOTFILES" "$DOTFILES"
+printf "%-15s | %-20s\n" "DOTFILES_DIR" "$DOTFILES_DIR"
 echo "--------------------------------------------------"
 
 if [[ "$UNINSTALL" == true ]]; then
   log "TODO: Uninstalling ${VARIANT} dotfiles, and try to restore the old config of $USER"
   log "Unsetting exported variables..."
-  unset DOTFILES
+  unset DOTFILES_DIR
   unset USER_SHELL
   unset VARIANT
   exit 0
