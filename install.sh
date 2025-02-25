@@ -2,17 +2,11 @@
 
 set -euo pipefail
 
+# init shared functions and variables
+eval "$(curl -fsSL https://raw.githubusercontent.com/radvil/bash-playground/main/vars.sh)"
+
 usage() {
   echo "Usage: $0 [--variant fedora|bazzite|arch|cachyos|nobara] [--uninstall]"
-  exit 1
-}
-
-log() {
-  echo -e "\e[32m[INFO]\e[0m $1"
-}
-
-error() {
-  echo -e "\e[31m[ERROR]\e[0m $1" >&2
   exit 1
 }
 
@@ -30,9 +24,6 @@ echo -e "\e[0m"
 
 echo -e "🚀 Installing dotfiles starting... Sit back, relax, and enjoy! 🎉\n"
 
-# Default values
-USER_SHELL="$SHELL"
-
 if command -v bash &>/dev/null; then
   USER_SHELL="bash"
 elif command -v fish &>/dev/null; then
@@ -42,13 +33,6 @@ elif command -v zsh &>/dev/null; then
 else
   error "No supported shell found (bash, fish, or zsh). Please install bash to proceed."
 fi
-
-VARIANT=""
-# REPO_URL="https://github.com/radvil/bash-playground.git" # Change this later
-SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
-INSTALL_DIR="$HOME/.dotfiles"
-SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
-UNINSTALL=false
 
 # Ensure the script is run by a non-root user in the wheel group
 if [[ "$EUID" -eq 0 ]]; then
@@ -85,35 +69,6 @@ while [[ $# -gt 0 ]]; do
     ;;
   esac
 done
-
-source_script() {
-  local script_url="$1"
-  log "Downloading and executing » $script_url"
-  case "$USER_SHELL" in
-  bash)
-    bash -c "$(curl -s "$script_url")"
-    ;;
-  fish)
-    fish -c "curl -s $script_url | source"
-    ;;
-  zsh)
-    zsh -c "$(curl -s "$script_url")"
-    ;;
-  *)
-    error "No supported shell found (bash, fish, or zsh). Please install bash to proceed."
-    ;;
-  esac
-}
-
-# export all variables for other scripts
-export VARIANT
-export USER_SHELL
-export SCRIPTS_BASE_URL
-export DOTFILES="$INSTALL_DIR"
-
-export log
-export error
-export source_script
 
 # Display the parsed arguments as a table
 echo "--------------------------------------------------"
