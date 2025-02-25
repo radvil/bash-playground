@@ -9,12 +9,12 @@ VERBOSE=false
 DRY_RUN=false
 
 if [ -z "$DOTFILES_USER" ]; then
-  GLOBAL_XDG="/home/$DOTFILES_USER/.config"
-  echo "$GLOBAL_XDG"
+  echo "${DOTFILES_USER}"
+  GLOBAL_XDG="/home/${DOTFILES_USER}/.config"
 fi
 
-if [ ! -d "$GLOBAL_XDG.bak" ]; then
-  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG.bak"
+if [ ! -d "${GLOBAL_XDG}.bak" ]; then
+  cp -r "$GLOBAL_XDG" "${GLOBAL_XDG}.bak"
 fi
 
 # Store summary info
