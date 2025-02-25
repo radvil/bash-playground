@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 VARIANT=""
 USER_SHELL="$SHELL"
@@ -9,12 +9,12 @@ SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
 UNINSTALL=false
 
 log() {
-  echo -e "\e[32m[INFO]\e[0m $1"
+  printf "\e[32m[INFO]\e[0m %s" "$1"
 }
 
 verbose_log() {
   if [ "$VERBOSE" = true ]; then
-    echo "\033[36m[DEBUG]\033[0m $1"
+    printf "\033[36m[DEBUG]\033[0m %s" "$1"
   fi
 }
 
@@ -22,6 +22,7 @@ error() {
   echo -e "\e[31m[ERROR]\e[0m $1" >&2
   exit 1
 }
+
 
 source_script() {
   script_url="$1"
