@@ -25,6 +25,8 @@ export DOTFILES="$INSTALL_DIR"
 
 SUPPORTED_VARIANTS=("fedora" "bazzite" "nobara" "arch" "cachyos")
 
+UNINSTALL=false
+
 usage() {
     echo "Usage: $0 [--variant fedora|bazzite|nobara|arch|cachyos]"
     exit 1
@@ -62,6 +64,10 @@ while [[ $# -gt 0 ]]; do
             VARIANT="$2"
             shift 2
             ;;
+        --uninstall)
+            UNINSTALL=true
+            shift
+            ;;
         -h|--help)
             usage
             ;;
@@ -75,6 +81,11 @@ done
 printf "\n%-15s | %-10s\n" "Argument" "Value"
 echo "------------------------------"
 printf "%-15s | %-10s\n" "Variant" "$VARIANT"
+
+if [[ "$UNINSTALL" == true ]]; then
+    log "TODO: Uninstalling ${VARIANT} dotfiles, and try to restore the old config of $USER"
+    exit 0
+fi
 
 # Execute the corresponding variant script using curl
 VARIANT_SCRIPT_URL="https://raw.githubusercontent.com/radvil/bash-playground/main/variants/${VARIANT}.sh"
