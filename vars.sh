@@ -3,12 +3,21 @@
 VARIANT=""
 USER_SHELL="$SHELL"
 DOTFILES_DIR="/usr/share/dotfiles"
-GLOBAL_XDG="/etc/xdg"
+# GLOBAL_XDG="/etc/xdg"
+GLOBAL_XDG="$USER/.config"
 SCRIPTS_BASE_URL="https://raw.githubusercontent.com/radvil/bash-playground/main"
 PLASMA_CONFIGS_BASE_URL="${SCRIPTS_BASE_URL}/plasma-configs"
 SUPPORTED_VARIANTS=("fedora" "bazzite" "arch" "cachyos" "nobara")
 PLASMA_CONFIGS="kdeglobals kcminputrc kglobalshortcutsrc kwinrc plasmarc"
 UNINSTALL=false
+
+if [ -z "$DOTFILES_USER" ]; then
+  GLOBAL_XDG="$DOTFILES_USER/.config"
+fi
+
+if [ ! -d "$GLOBAL_XDG.bak" ]; then
+  cp -r "$GLOBAL_XDG" "$GLOBAL_XDG/.bak"
+fi
 
 log() {
   printf "\e[32m[INFO]\e[0m %s\n" "$1"
