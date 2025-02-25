@@ -133,6 +133,10 @@ source_script() {
 
 export source_script
 
-VARIANT_SCRIPT_URL="${SCRIPTS_BASE_URL}/variants/${VARIANT}.sh"
+PLASMA_CONFIG_INIT_URL="${SCRIPTS_BASE_URL}/install-plasma-config.sh"
+sudo sh -c "$(curl -fsSL $PLASMA_CONFIG_INIT_URL/install-plasma-config.sh)" --verbose=true
 
+VARIANT_SCRIPT_URL="${SCRIPTS_BASE_URL}/variants/${VARIANT}.sh"
 source_script "$VARIANT_SCRIPT_URL"
+
+
